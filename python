@@ -1,0 +1,43 @@
+""" Benjamin is managing a product inventory for a multi-store business. Each product has multiple price listings from different stores. Benjamin needs to find the lowest price for each product that is available in more than one store. 
+
+
+
+Your task is to help Benjamin by writing a program to compute these minimum prices.
+
+Input format :
+The first line of input consists of an integer n, representing the number of product entries.
+
+The next n lines contain data for each product. Each line starts with an integer product_id followed by a list of integers representing the prices of the product from different stores.
+
+Output format :
+The output should display a dictionary where the keys are product IDs and the values are the lowest price for each product that is available in more than one store."""
+
+# Read number of entries
+n = int(input())
+
+# Initialize empty dictionary to store product prices
+product_prices = {}
+
+# Loop to read the input data
+for _ in range(n):
+    # Read and parse the input line
+    line = input().strip().split()
+    product_id = int(line[0])
+    prices = list(map(int, line[2:]))
+    
+    # Update the product prices dictionary
+    if product_id in product_prices:
+        product_prices[product_id].extend(prices)
+    else:
+        product_prices[product_id] = prices
+
+# Initialize result dictionary
+result = {}
+
+# Iterate over product prices to find the lowest price for each product
+for product_id, prices in product_prices.items():
+    if len(prices) > 1:  # Check if the product is available in more than one store
+        result[product_id] = min(prices)
+
+# Print the result
+print(result)
